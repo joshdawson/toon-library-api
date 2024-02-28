@@ -1,0 +1,24 @@
+{
+  "name": "toon-library-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/toon-library-api/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "toon-library-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "toon-library-api:build:development"
+        },
+        "production": {
+          "buildTarget": "toon-library-api:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
