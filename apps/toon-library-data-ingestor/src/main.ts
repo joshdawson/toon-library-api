@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
 import { AppService } from './app/app.service';
-import { run } from 'node:test';
 
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(AppModule);
@@ -11,6 +10,7 @@ async function bootstrap() {
   await appService.run();
   
   console.log('Done');
+  process.exit(0);
 }
 
 bootstrap();

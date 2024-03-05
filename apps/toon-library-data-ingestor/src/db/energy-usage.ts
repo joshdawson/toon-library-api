@@ -1,7 +1,9 @@
 import { Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm';
 
+import { EnergyType, EnergyUsageDto, EnergyUsageUnit } from '../models/energy-usage';
+
 @Entity()
-export class EnergyUsage {
+export class EnergyUsage implements EnergyUsageDto {
   @ObjectIdColumn()
   public id: ObjectId;
 
@@ -12,10 +14,13 @@ export class EnergyUsage {
   public year: number;
 
   @Column()
-  public energyType: string;
+  public energyType: EnergyType;
 
   @Column()
-  public unit: string;
+  public unit: EnergyUsageUnit;
+
+  @Column()
+  public value: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

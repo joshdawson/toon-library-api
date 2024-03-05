@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
 
-import { EnergyUsageService } from '../ingest/energy-usage.service';
+import { IngestService } from '../ingest/ingest.service';
 
 @Injectable()
 export class AppService {
-  constructor(private energyUsageService: EnergyUsageService) {}
+  constructor(private ingestService: IngestService) {}
 
   public async run(): Promise<void> {
     try {
-      this.energyUsageService.create();
+      await this.ingestService.ingest();
+      console.log('Finished ingesting');
     } catch (error) {
       console.error(error);
     }
