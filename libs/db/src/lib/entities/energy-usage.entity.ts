@@ -4,26 +4,26 @@ import { Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm';
 @Entity()
 export class EnergyUsage implements EnergyUsageDto {
   @ObjectIdColumn()
-  public id: ObjectId;
+  public id!: ObjectId;
 
   @Column()
-  public month: string;
+  public month!: string;
   
   @Column()
-  public year: number;
+  public year!: number;
 
   @Column()
-  public energyType: EnergyType;
+  public energyType!: EnergyType;
 
   @Column()
-  public unit: EnergyUsageUnit;
+  public unit!: EnergyUsageUnit;
 
   @Column()
-  public value: string;
+  public value!: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @Column({ type: 'timestamp', default: null, nullable: true })
-  updatedAt: Date;
+  updatedAt: Date | null = null;
 }

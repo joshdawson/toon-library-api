@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@toon-library-api/db": ["libs/db/src/index.ts"],
       "@toon-library-api/models": ["libs/models/src/index.ts"]
     }
   },

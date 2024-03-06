@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { DBModule } from '@toon-library-api/db';
 
-import { EnergyUsage } from '../db/energy-usage';
 import { CsvDataMapperService } from './csv-data-mapper.service';
 import { CsvReaderService } from './csv-reader.service';
-import { EnergyUsageService } from './energy-usage.service';
 import { IngestService } from './ingest.service';
+import { EnergyUsageService } from './energy-usage.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([EnergyUsage]),],
+  imports: [DBModule],
   providers: [
     EnergyUsageService,
     CsvReaderService,
