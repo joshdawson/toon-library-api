@@ -2,7 +2,7 @@ import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { EnergyUsageDto, EnergyType, EnergyUsageUnit } from '@toon-library-api/models';
 
 @ObjectType()
-export class EnergyConsumption implements EnergyUsageDto {
+export class EnergyUsage implements EnergyUsageDto {
   @Field(() => ID)
   public id: string;
 

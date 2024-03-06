@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
+import { DBModule } from '@toon-library-api/db';
 
-import { EnergyConsumptionResolver } from './energy-consumption.resolver';
-import { EnergyConsumptionService } from './energy-consumption.service';
+import { EnergyUsageService } from './energy-usage.service';
+import { EnergyUsageResolver } from './energy-usage.resolver';
 
 @Module({
-  providers: [EnergyConsumptionResolver, EnergyConsumptionService],
+  imports: [DBModule],
+  providers: [EnergyUsageResolver, EnergyUsageService],
 })
 export class APIModule {}
