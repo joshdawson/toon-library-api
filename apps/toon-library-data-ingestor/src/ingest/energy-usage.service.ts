@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { EnergyUsageDto } from '@toon-library-api/models';
 import { Repository } from 'typeorm';
 
 import { EnergyUsage } from '../db/energy-usage';
-import { EnergyUsageDto } from '../models/energy-usage';
 
 @Injectable()
 export class EnergyUsageService {

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { EnergyUsageDto } from '@toon-library-api/models';
 
-import { EnergyUsageDto } from '../models/energy-usage';
 import { RawElectricityData } from './models/raw-data';
 
 @Injectable()

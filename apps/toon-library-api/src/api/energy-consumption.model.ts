@@ -1,7 +1,8 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { EnergyUsageDto, EnergyType, EnergyUsageUnit } from '@toon-library-api/models';
 
 @ObjectType()
-export class EnergyConsumption {
+export class EnergyConsumption implements EnergyUsageDto {
   @Field(() => ID)
   public id: string;
 
@@ -11,11 +12,11 @@ export class EnergyConsumption {
   @Field()
   public year: number;
 
-  @Field()
-  public energyType: string;
+  @Field(() => String)
+  public energyType: EnergyType;
 
-  @Field()
-  public unit: string;
+  @Field(() => String)
+  public unit: EnergyUsageUnit;
 
   @Field()
   public value: string;
