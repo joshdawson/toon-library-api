@@ -11,16 +11,11 @@ import { EnergyUsage } from './entities/energy-usage.entity';
     TypeOrmModule.forRootAsync({
       useFactory: async (configService: ConfigService) => ({
         type: 'mongodb',
-        host: configService.getConfigValue('DB_HOST'),
-        port: configService.getConfigValue('DB_PORT'),
-        database: configService.getConfigValue('DB_NAME'),
-        synchronize: true,
-        username: configService.getConfigValue('DB_USERNAME'),
-        password: configService.getConfigValue('DB_PWD'),
+        synchronize: configService.env().DB_SYNC,
+        url: configService.env().DB_CONN_STR,
         entities: [EnergyUsage],
         useUnifiedTopology: true,
         useNewUrlParser: true,
-        authSource: 'admin',
       }),
       inject: [ConfigService],
       imports: [ConfigModule]

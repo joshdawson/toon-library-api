@@ -1,17 +1,18 @@
 import 'dotenv/config';
 
 import { Injectable } from '@nestjs/common';
+import { bool, cleanEnv, str } from 'envalid';
 
-type ConfigKeys = 'DB_HOST' | 'DB_NAME' | 'DB_PORT' | 'DB_USERNAME' | 'DB_PWD';
+const env = cleanEnv(process.env, {
+  DB_CONN_STR: str(),
+  DB_SYNC: bool({
+    default: false,
+  }),
+});
 
 @Injectable()
 export class ConfigService {
-  public getConfigValue<T>(configKey: ConfigKeys) {
-    const value  = process.env[configKey];
-    if (!value) {
-      throw new Error(`Missing env variable ${configKey}`);
-    }
-
-    return value as T;
+  public env() {
+    return env;
   }
 }
