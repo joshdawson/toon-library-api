@@ -1,6 +1,7 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import depthLimit from 'graphql-depth-limit';
 import * as path from 'path';
 
 import { APIModule } from '../api/api.module';
@@ -11,6 +12,7 @@ import { APIModule } from '../api/api.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: path.join(process.cwd(), 'src/schema.gql'),
+      validationRules: [depthLimit(10)],
     }),
   ],
   controllers: [],
