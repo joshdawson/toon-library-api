@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
 import { DBModule } from '@toon-library-api/db';
 
-import { CsvDataMapperService } from './csv-data-mapper.service';
-import { CsvReaderService } from './csv-reader.service';
+import { DataServiceFactory } from './data/data-service.factory';
+import { ElectricityConsumptionDataService } from './data/electricity-consumption-data.service';
+import { IngestConfigService } from './ingest.config.service';
 import { IngestService } from './ingest.service';
-import { EnergyUsageService } from './energy-usage.service';
 
 @Module({
   imports: [DBModule],
   providers: [
-    EnergyUsageService,
-    CsvReaderService,
     IngestService,
-    CsvDataMapperService,
+    IngestConfigService,
+    DataServiceFactory,
+    ElectricityConsumptionDataService,
   ],
   exports: [IngestService],
 })
