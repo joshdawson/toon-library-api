@@ -8,7 +8,7 @@ import { ElectricityConsumptionDataService } from './electricity-consumption-dat
 export class DataServiceFactory {
   constructor(private moduleRef: ModuleRef) {}
 
-  public async getService(dataName: string): Promise<DataService<any>> {
+  public async getService(dataName: string): Promise<DataService<any, any>> {
     switch (dataName) {
       case 'electricity-consumption': {
         return this.moduleRef.create(ElectricityConsumptionDataService);

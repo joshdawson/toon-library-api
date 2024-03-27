@@ -19,10 +19,16 @@ export class IngestService {
     for (const dataSet of dataSetsToRun) {
       const service = await this.dataFetcherFactoryService.getService(dataSet);
       const dataSetConfig = config[dataSet];
+      if (!dataSetConfig) {
+        throw new Error(`Missing data set config for ${dataSet}`);
+      }
 
-      const data = await service.fetch(dataSetConfig['download-url']);
+      const downloadUrl = dataSetConfig['download-url'];
+      if (!downloadUrl) {
+        throw new Error(`Missing download URL for ${dataSet}`);
+      }
 
-      await service.insert(data);
+      await service.ingest(downloadUrl);
     }
   }
 }
