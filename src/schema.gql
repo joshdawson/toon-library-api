@@ -19,6 +19,7 @@ enum EnergyType {
 
 enum EnergyUsageUnit {
   kWh
+  m3
 }
 
 type EnergyUsageQueryResult {
