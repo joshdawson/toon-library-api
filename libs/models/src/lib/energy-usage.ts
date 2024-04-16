@@ -6,6 +6,7 @@ export enum EnergyType {
 
 export enum EnergyUsageUnit {
   kWh = 'kWh',
+  m3 = '㎥'
 }
 
 export interface EnergyUsageDto {

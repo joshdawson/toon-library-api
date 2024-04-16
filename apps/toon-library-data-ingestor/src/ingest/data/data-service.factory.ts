@@ -3,6 +3,7 @@ import { ModuleRef } from '@nestjs/core';
 
 import { DataService } from './data.service';
 import { ElectricityConsumptionDataService } from './electricity-consumption-data.service';
+import { WaterConsumptionDataService } from './water-consumption-data.service';
 
 @Injectable()
 export class DataServiceFactory {
@@ -12,6 +13,10 @@ export class DataServiceFactory {
     switch (dataName) {
       case 'electricity-consumption': {
         return this.moduleRef.create(ElectricityConsumptionDataService);
+      }
+
+      case 'water-consumption': {
+        return this.moduleRef.create(WaterConsumptionDataService);
       }
 
       default: {

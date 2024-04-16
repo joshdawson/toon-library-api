@@ -3,6 +3,7 @@ import { DBModule } from '@toon-library-api/db';
 
 import { DataServiceFactory } from './data/data-service.factory';
 import { ElectricityConsumptionDataService } from './data/electricity-consumption-data.service';
+import { WaterConsumptionDataService } from './data/water-consumption-data.service';
 import { IngestConfigService } from './ingest.config.service';
 import { IngestService } from './ingest.service';
 
@@ -13,6 +14,7 @@ import { IngestService } from './ingest.service';
     IngestConfigService,
     DataServiceFactory,
     ElectricityConsumptionDataService,
+    WaterConsumptionDataService,
   ],
   exports: [IngestService],
 })

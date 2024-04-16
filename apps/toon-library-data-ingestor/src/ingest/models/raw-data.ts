@@ -9,3 +9,5 @@ export type RawElectricityData = {
   '2018': string;
   Date: string;
 };
+
+export type RawWaterData = RawElectricityData;

@@ -1,2 +1,5 @@
 electricity-consumption:
   download-url: https://api.github.com/repos/ToonLibraries/library-open-data/contents/city-library-energy-consumption/2011-onwards-city-elec-consumption.csv
+
+water-consumption:
+  download-url: https://api.github.com/repos/ToonLibraries/library-open-data/contents/city-library-energy-consumption/2011-onwards-city-water-consumption.csv

@@ -4,28 +4,28 @@ import { EnergyUsage } from '@toon-library-api/db';
 import { EnergyType, EnergyUsageDto, EnergyUsageUnit } from '@toon-library-api/models';
 import { Repository } from 'typeorm';
 
-import { RawElectricityData } from '../models/raw-data';
+import { RawWaterData } from '../models/raw-data';
 import { DataService } from './data.service';
 
-type ElectricityConsumptionData = Omit<EnergyUsageDto, 'id'>
+type WaterConsumptionData = Omit<EnergyUsageDto, 'id'>
 
 @Injectable()
-export class ElectricityConsumptionDataService extends DataService<ElectricityConsumptionData, RawElectricityData> {
+export class WaterConsumptionDataService extends DataService<WaterConsumptionData, RawWaterData> {
   constructor(
     @InjectRepository(EnergyUsage) private energyUsageRepo: Repository<EnergyUsage>
   ) {
     super();
   }
 
-  public async insert(data: ElectricityConsumptionData[]) {
+  public async insert(data: WaterConsumptionData[]) {
     const result = await this.energyUsageRepo.insert(data);
     if (!result) {
-      throw new Error('Error inserting electricity consumption data');
+      throw new Error('Error inserting water consumption data');
     }
   }
 
-  public mapData(raw: RawElectricityData[]): ElectricityConsumptionData[] {
-    const usages: ElectricityConsumptionData[] = []
+  public mapData(raw: RawWaterData[]): WaterConsumptionData[] {
+    const usages: WaterConsumptionData[] = []
 
     for (const entry of raw) {
       const { Date: month, ...values } = entry;
@@ -34,8 +34,8 @@ export class ElectricityConsumptionDataService extends DataService<ElectricityCo
         usages.push({
           month,
           year: Number(year),
-          energyType: EnergyType.electricity,
-          unit: EnergyUsageUnit.kWh,
+          energyType: EnergyType.water,
+          unit: EnergyUsageUnit.m3,
           value,
         });
       }
