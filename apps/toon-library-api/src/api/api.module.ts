@@ -1,11 +1,21 @@
 import { Module } from '@nestjs/common';
+import { registerEnumType } from '@nestjs/graphql';
 import { DBModule } from '@toon-library-api/db';
+import { EnergyType, EnergyUsageUnit } from '@toon-library-api/models';
 
-import { EnergyUsageService } from './energy-usage.service';
-import { EnergyUsageResolver } from './energy-usage.resolver';
+import { EnergyUsageQueryResolver } from './energy-usage/energy-usage-query.resolver';
+import { EnergyUsageService } from './energy-usage/energy-usage.service';
+
+registerEnumType(EnergyType, {
+  name: 'EnergyType',
+});
+
+registerEnumType(EnergyUsageUnit, {
+  name: 'EnergyUsageUnit',
+});
 
 @Module({
   imports: [DBModule],
-  providers: [EnergyUsageResolver, EnergyUsageService],
+  providers: [EnergyUsageQueryResolver, EnergyUsageService],
 })
 export class APIModule {}
