@@ -12,18 +12,18 @@ export class EnergyUsage implements EnergyUsageDto {
   @Field()
   public year: number;
 
-  @Field(() => String)
+  @Field(() => EnergyType)
   public energyType: EnergyType;
 
-  @Field(() => String)
+  @Field(() => EnergyUsageUnit)
   public unit: EnergyUsageUnit;
 
   @Field()
   public value: string;
+}
 
-  @Field()
-  public createdAt: Date;
-
-  @Field({ nullable: true })
-  public updatedAt: Date;
+@ObjectType()
+export class EnergyUsageQueryResult {
+  @Field(() => [EnergyUsage])
+  public data: EnergyUsage[];
 }

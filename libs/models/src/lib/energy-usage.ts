@@ -1,8 +1,15 @@
-export type EnergyType = 'electricity';
+export enum EnergyType {
+  electricity = 'electricity',
+  gas = 'gas',
+  water = 'water'
+}
 
-export type EnergyUsageUnit = 'kWh';
+export enum EnergyUsageUnit {
+  kWh = 'kWh',
+}
 
 export interface EnergyUsageDto {
+  id: string;
   month: string;
   year: number;
   energyType: EnergyType;

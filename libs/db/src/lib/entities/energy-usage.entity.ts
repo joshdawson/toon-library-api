@@ -1,8 +1,8 @@
-import { EnergyType, EnergyUsageDto, EnergyUsageUnit } from '@toon-library-api/models';
+import { EnergyType, EnergyUsageUnit } from '@toon-library-api/models';
 import { Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm';
 
 @Entity()
-export class EnergyUsage implements EnergyUsageDto {
+export class EnergyUsage {
   @ObjectIdColumn()
   public id!: ObjectId;
 
