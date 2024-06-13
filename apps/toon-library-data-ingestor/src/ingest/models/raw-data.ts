@@ -11,3 +11,5 @@ export type RawElectricityData = {
 };
 
 export type RawWaterData = RawElectricityData;
+
+export type RawGasData = RawElectricityData;

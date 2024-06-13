@@ -4,38 +4,42 @@ import { EnergyUsage } from '@toon-library-api/db';
 import { EnergyType, EnergyUsageDto, EnergyUsageUnit } from '@toon-library-api/models';
 import { Repository } from 'typeorm';
 
-import { RawWaterData } from '../models/raw-data';
+import { RawGasData } from '../models/raw-data';
 import { DataService } from './data.service';
 
-type WaterConsumptionData = Omit<EnergyUsageDto, 'id'>;
+type GasConsumptionData = Omit<EnergyUsageDto, 'id'>;
 
 @Injectable()
-export class WaterConsumptionDataService extends DataService<WaterConsumptionData, RawWaterData> {
+export class GasConsumptionDataService extends DataService<GasConsumptionData, RawGasData> {
   constructor(
     @InjectRepository(EnergyUsage) private energyUsageRepo: Repository<EnergyUsage>
   ) {
     super();
   }
 
-  public async insert(data: WaterConsumptionData[]) {
+  public async insert(data: GasConsumptionData[]): Promise<void> {
     const result = await this.energyUsageRepo.insert(data);
     if (!result) {
-      throw new Error('Error inserting water consumption data');
+      throw new Error('Error inserting gas consumption data');
     }
   }
 
-  public mapData(raw: RawWaterData[]): WaterConsumptionData[] {
-    const usages: WaterConsumptionData[] = []
+  public mapData(rawData: RawGasData[]): GasConsumptionData[] {
+    const usages: GasConsumptionData[] = []
 
-    for (const entry of raw) {
+    for (const entry of rawData) {
       const { Date: month, ...values } = entry;
 
       for (const [year, value] of Object.entries(values)) {
+        if (!value?.length) {
+          continue;
+        }
+
         usages.push({
           month,
           year: Number(year),
-          energyType: EnergyType.water,
-          unit: EnergyUsageUnit.m3,
+          energyType: EnergyType.gas,
+          unit: EnergyUsageUnit.kWh,
           value,
         });
       }
@@ -43,4 +47,5 @@ export class WaterConsumptionDataService extends DataService<WaterConsumptionDat
 
     return usages;
   }
+
 }
