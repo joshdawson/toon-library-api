@@ -2,10 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EnergyUsage } from '@toon-library-api/db';
 import { EnergyType, EnergyUsageDto } from '@toon-library-api/models';
-import { FindManyOptions, Repository } from 'typeorm';
+import { FindManyOptions, Repository, ILike, Raw, MongoBatchReExecutionError } from 'typeorm';
 
 type GetEngergyUsagesOptions = {
   energyType?: EnergyType;
+  month?: string;
+  year?: number;
 }
 
 @Injectable()
@@ -18,6 +20,20 @@ export class EnergyUsageService {
     if (options?.energyType) {
       findOptions.where = {
         energyType: options.energyType,
+      };
+    }
+
+    if (options?.month) {
+      findOptions.where = {
+        ...findOptions.where,
+        monthLower: options.month.toLowerCase(),
+      };
+    }
+
+    if (options?.year) {
+      findOptions.where = {
+        ...findOptions.where,
+        year: options.year
       };
     }
 

@@ -5,6 +5,12 @@ import { EnergyType } from '@toon-library-api/models';
 export class EnergyUsageQueryFilter {
   @Field(() => EnergyType, { nullable: true })
   energyType?: EnergyType;
+
+  @Field({ nullable: true })
+  month: string;
+
+  @Field({ nullable: true })
+  year: number;
 }
 
 @ArgsType()

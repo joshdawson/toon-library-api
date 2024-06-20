@@ -32,4 +32,6 @@ type Query {
 
 input EnergyUsageQueryFilter {
   energyType: EnergyType
+  month: String
+  year: Float
 }

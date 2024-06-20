@@ -16,4 +16,5 @@ export interface EnergyUsageDto {
   energyType: EnergyType;
   unit: EnergyUsageUnit;
   value: string;
+  monthLower?: string;
 }
