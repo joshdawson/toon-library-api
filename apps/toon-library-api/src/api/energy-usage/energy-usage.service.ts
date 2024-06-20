@@ -1,45 +1,62 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EnergyUsage } from '@toon-library-api/db';
-import { EnergyType, EnergyUsageDto } from '@toon-library-api/models';
-import { FindManyOptions, Repository, ILike, Raw, MongoBatchReExecutionError } from 'typeorm';
+import { EnergyUsageDto } from '@toon-library-api/models';
+import { orderBy } from 'lodash';
+import { FindManyOptions, Repository } from 'typeorm';
 
-type GetEngergyUsagesOptions = {
-  energyType?: EnergyType;
-  month?: string;
-  year?: number;
-}
+import { EnergyUsageQueryArgs, EnergyUsageQueryFilter, EnergyUsageQuerySort } from './energy-usage-query.args';
 
 @Injectable()
 export class EnergyUsageService {
   constructor(@InjectRepository(EnergyUsage) private energyUsageRepo: Repository<EnergyUsage>) {}
 
-  public async getEnergyUsages(options?: GetEngergyUsagesOptions) {
+  public async getEnergyUsages(options?: EnergyUsageQueryArgs) {
+    const filteredData = await this.filterEnergyUsages(options.filter);
+
+    const sortedData = this.sortEnergyUsages(filteredData, options.sort);
+
+    return this.map(sortedData);
+  }
+
+  private filterEnergyUsages(filter?: EnergyUsageQueryFilter) {
     const findOptions: FindManyOptions<EnergyUsage> = {};
 
-    if (options?.energyType) {
+    if (filter?.energyType) {
       findOptions.where = {
-        energyType: options.energyType,
+        energyType: filter.energyType,
       };
     }
 
-    if (options?.month) {
-      findOptions.where = {
-        ...findOptions.where,
-        monthLower: options.month.toLowerCase(),
-      };
-    }
-
-    if (options?.year) {
+    if (filter?.month) {
       findOptions.where = {
         ...findOptions.where,
-        year: options.year
+        monthLower: filter.month.toLowerCase(),
       };
     }
 
-    const data = await this.energyUsageRepo.find(findOptions);
+    if (filter?.year) {
+      findOptions.where = {
+        ...findOptions.where,
+        year: filter.year
+      };
+    }
 
-    return this.map(data);
+    return this.energyUsageRepo.find(findOptions);
+  }
+
+  private sortEnergyUsages(data: EnergyUsage[], sort?: EnergyUsageQuerySort) {
+    let sorted = data;
+
+    if (sort?.value) {
+      sorted = orderBy(data, 'value', sort.value);
+    }
+
+    if (sort?.date) {
+      sorted = orderBy(data, d => new Date(`${d.month} ${d.year}`), sort.date);
+    }
+
+    return sorted;
   }
 
   private map(entities: EnergyUsage[]): EnergyUsageDto[] {

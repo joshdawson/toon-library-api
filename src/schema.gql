@@ -27,11 +27,21 @@ type EnergyUsageQueryResult {
 }
 
 type Query {
-  energyUsages(filter: EnergyUsageQueryFilter): EnergyUsageQueryResult!
+  energyUsages(filter: EnergyUsageQueryFilter, sort: EnergyUsageQuerySort): EnergyUsageQueryResult!
 }
 
 input EnergyUsageQueryFilter {
   energyType: EnergyType
   month: String
   year: Float
+}
+
+input EnergyUsageQuerySort {
+  date: SortType
+  value: SortType
+}
+
+enum SortType {
+  asc
+  desc
 }

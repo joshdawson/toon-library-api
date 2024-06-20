@@ -10,7 +10,7 @@ export class EnergyUsageQueryResolver {
 
   @Query(() => EnergyUsageQueryResult)
   public async energyUsages(@Args() args?: EnergyUsageQueryArgs): Promise<EnergyUsageQueryResult> {
-    const data = await this.energyUsageService.getEnergyUsages(args?.filter);
+    const data = await this.energyUsageService.getEnergyUsages(args);
 
     return {
       data,
