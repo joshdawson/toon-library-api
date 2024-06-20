@@ -37,6 +37,7 @@ export class ElectricityConsumptionDataService extends DataService<ElectricityCo
           energyType: EnergyType.electricity,
           unit: EnergyUsageUnit.kWh,
           value,
+          monthLower: month.toLowerCase(),
         });
       }
     }

@@ -37,6 +37,7 @@ export class WaterConsumptionDataService extends DataService<WaterConsumptionDat
           energyType: EnergyType.water,
           unit: EnergyUsageUnit.m3,
           value,
+          monthLower: month.toLowerCase(),
         });
       }
     }

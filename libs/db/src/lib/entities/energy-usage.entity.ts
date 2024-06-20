@@ -8,7 +8,7 @@ export class EnergyUsage {
 
   @Column()
   public month!: string;
-  
+
   @Column()
   public year!: number;
 
@@ -20,6 +20,9 @@ export class EnergyUsage {
 
   @Column()
   public value!: string;
+
+  @Column()
+  public monthLower!: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;

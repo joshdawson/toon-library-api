@@ -41,6 +41,7 @@ export class GasConsumptionDataService extends DataService<GasConsumptionData, R
           energyType: EnergyType.gas,
           unit: EnergyUsageUnit.kWh,
           value,
+          monthLower: month.toLowerCase(),
         });
       }
     }
